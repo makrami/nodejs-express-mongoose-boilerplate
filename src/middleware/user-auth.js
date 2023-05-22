@@ -1,11 +1,11 @@
 import httpException from '../utils/http-exception.js';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
-import appConfig from '../config/app-config.js';
+import { config } from '../config/config.js';
 
 export const checkJwt = async (req, res, next) => {
   // get the user with the token
-  const user_access_token_secret = appConfig.auth.user_access_token_secret;
+  const user_access_token_secret = config.auth.user_access_token_secret;
   let tokenPrefix = req.headers.authorization.split(' ')[0];
   let token = req.headers.authorization.split(' ')[1];
   let jwtPayload;

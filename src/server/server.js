@@ -1,17 +1,21 @@
 import {} from 'dotenv/config';
-import appConfig from '../config/app-config.js';
-
-/* middleware  */
+import { config } from '../config/config.js';
 import app from './app.js';
-
-/* start the database */
 import db from '../services/database/db.js';
 
-db.connect();
-db.seed();
+function bootstrap() {
+  const port = config.port;
 
-/* start the server */
-const port = appConfig.app.port;
-app.listen(process.env.PORT, () => {
-  console.log(`Application is running on port ${port}`);
-});
+  db.connect();
+  db.seed();
+
+  app.listen(port, () => {
+    console.log(`Application is running on port ${port}`);
+  });
+
+  return app;
+}
+
+bootstrap();
+
+export default bootstrap;

@@ -6,10 +6,10 @@ import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 import fileUploader from 'express-fileupload';
-import appConfig from '../config/app-config.js';
+import { config } from '../config/config.js';
 const app = express();
 
-appConfig.app.env === 'development' && app.use(morgan('dev'));
+(config.env === 'development' || config.env === 'test') && app.use(morgan('dev'));
 app.use(cors());
 app.use(helmet({ contentSecurityPolicy: false })); // Set security HTTP headers
 app.use(express.json({ limit: '5mb' })); //Passing JSON to req.body

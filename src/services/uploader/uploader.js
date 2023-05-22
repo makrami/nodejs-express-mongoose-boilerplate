@@ -5,7 +5,7 @@ import httpException from '../../utils/http-exception.js';
 const storagePath = `${__dirname}/../../public/uploads`;
 
 // upload any file
-export async function uploader({ folderType, file, saveToDb = false }) {
+export async function uploader({ user = null, folderType, file, saveToDb = false }) {
   const checkFileFormat = (fileFormat, formats) => formats.includes(fileFormat);
 
   // Path file upload

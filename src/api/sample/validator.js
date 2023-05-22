@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
 
 export default {
-  sampleValidators: [
+  sampleValidator: [
     body('fullName', 'نام الزامی است')
       .notEmpty()
       .isString()
@@ -10,4 +10,6 @@ export default {
       .isLength({ min: 3, max: 30 })
       .withMessage('طول نام باید بین ۳ کاراکتر تا ۳۰ کاراکتر باشد'),
   ],
+
+  createUserValidator: [body('username', 'نام کاربری صحیح نیست').notEmpty().isString().isLength({ min: 8, max: 30 })],
 };
