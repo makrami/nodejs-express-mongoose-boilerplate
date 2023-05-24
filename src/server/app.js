@@ -1,12 +1,12 @@
 import express from 'express';
-import httpException from '../utils/http-exception.js';
-import api from '../api/index.js';
+import api from '../controllers/index.js';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 import fileUploader from 'express-fileupload';
 import { config } from '../config/config.js';
+import errorHandler from '../middleware/errorHandler.js';
 const app = express();
 
 (config.env === 'development' || config.env === 'test') && app.use(morgan('dev'));
@@ -24,6 +24,7 @@ app.use(
     uriDecodeFileNames: true,
   })
 );
+
 app.use(
   '/',
   rateLimit({
@@ -31,12 +32,19 @@ app.use(
     max: 1000, // Limit each IP to 1000 requests per `window` (here, per 1 minutes)
   })
 );
+
+
 app.use('/api/v1', api);
 
 // handle undefined Routes
 app.use('*', (req, res, next) => {
-  httpException({ res, message: 'Not Found', status: 404 });
+  res.status(404).send({
+    statusCode: 404,
+    message: 'Not Found',
+  })
   next();
 });
+
+app.use(errorHandler)
 
 export default app;

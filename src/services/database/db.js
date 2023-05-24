@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 import { config } from '../../config/config.js';
-const databaseUrl = config.databaseUrl;
+const databaseUri = config.databaseUri;
 
 const db = {
   connect: () => {
     mongoose
-      .connect(databaseUrl, {
+      .connect(databaseUri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       })
