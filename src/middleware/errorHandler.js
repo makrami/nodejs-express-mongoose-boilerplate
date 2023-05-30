@@ -13,7 +13,7 @@ export default function errorHandler(err, req, res, next) {
     err instanceof UnauthorizedException ||
     err instanceof UnprocessableEntityException ||
     err instanceof NotFoundException) {
-    return res.status(err.statusCode).send(getErrorData(err));
+    return res.status(err.statusCode).send(getErrorData(err)).end();
   } else {
 
     // import log4js from "log4js";
@@ -24,6 +24,6 @@ export default function errorHandler(err, req, res, next) {
     // });
 
     console.log(err);
-    return res.status(500).send({ statusCode: 500, error: 'Internal Server Error' });
+    return res.status(500).send({ statusCode: 500, error: 'Internal Server Error' }).end();
   }
 }

@@ -23,7 +23,6 @@ async function register(req, res, next) {
   }
 }
 
-
 async function getProfile(req, res) {
   const { user } = req;
 
